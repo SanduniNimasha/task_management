@@ -1,32 +1,35 @@
-# Task Management System
+# ToDo Task Management App
 
-A fully functional Task Management System built using:
+## Project Overview
 
-- Frontend: HTML, CSS, JavaScript
-- Backend: Node.js + Express.js
-- Database: MySQL
+The ToDo Task Management App is a full-stack web application designed to help users efficiently manage and organize their daily tasks. It provides a simple and intuitive interface to create, update, track, and delete tasks while maintaining clear visibility of task status and priority.
 
-It allows users to:
-- Create tasks
-- Update tasks
-- Delete tasks
-- Mark tasks as completed or pending
+The system follows a client-server architecture with a RESTful API built using Node.js and Express.js, and MySQL used for persistent data storage.
+
+---
+
+## Key Features
+
+- Create, update, and delete tasks
+- Mark tasks as **Pending** or **Completed**
+- Set task priority (High, Medium, Low)
 - Filter tasks by status and priority
-- Search tasks
-- View dashboard statistics
+- Search tasks by title or description
+- Real-time dashboard showing task statistics
+- Clean and responsive user interface
+- Fully API-driven frontend-backend communication
 
-## Features
+---
 
-- Add new tasks
-- Edit existing tasks
-- Delete tasks
-- Mark tasks as completed or pending
-- Filter by status (All / Pending / Completed)
-- Filter by priority (High / Medium / Low)
-- Search tasks
-- Dashboard with task statistics
-- Responsive UI
-- Toast notifications for actions
+## Purpose
+
+This project demonstrates full-stack development skills including CRUD operations, REST API integration, database management, and frontend-backend communication using modern web technologies.
+
+It is designed as a practical task management solution with scalable architecture and maintainable code structure.
+
+---
+
+
 
   ## Tech Stack
 
