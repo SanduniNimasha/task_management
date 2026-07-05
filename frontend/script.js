@@ -438,7 +438,7 @@ function showToast(message, type = "info") {
 
     container.appendChild(toast);
 
-    // auto remove after 3s
+    
     setTimeout(() => {
         toast.remove();
     }, 3000);
