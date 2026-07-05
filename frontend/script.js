@@ -219,7 +219,7 @@ function applyFilters() {
     renderTasks(filtered);
     loadDashboard(filtered); 
 }
-
+//renderTask
 
 function renderTasks(data = allTasks) {
     const tbody = document.getElementById("task-tbody");
