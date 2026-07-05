@@ -45,7 +45,7 @@ Database:
   ## Installation
 
 ### 1. Clone repository
-git clone https://github.com/your-username/task-manager.git
+git clone https://github.com/SanduniNimasha/task-manager.git
 
 ### 2. Install backend dependencies
 cd backend
