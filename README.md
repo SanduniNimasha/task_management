@@ -116,13 +116,12 @@ task-manager/
 ## Screenshots
 
 ### Dashboard
-![Dashboard](screenshots/dashboard.png)
+![Dashboard](screenshots/Dashboard.png)
 
 ### Add Task
-![Add Task](screenshots/add-task.png)
+![Add Task](screenshots/Update_task.png)
 
-### Edit Task
-![Edit Task](screenshots/edit-task.png)
+
 
 ## Repository
 
