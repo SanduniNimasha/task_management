@@ -1,1 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ToDo — Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
 
+</head>
+<body>
+
+<div class="app">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+    <div class="logo-mark">T</div>
+
+  <div class="logo-brand">
+    <div class="logo-text">ToDo</div>
+    <div class="logo-subtitle">Task Management APP</div>
+  </div>
+</div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-label">Home</div>
+
+      <div class="nav-item active" onclick="setView(event, 'all')">
+        <div class="nav-icon">
+         
+        </div>
+        All Tasks
+        
+      </div>
+
+      <div class="nav-item" onclick="setView(event, 'pending')">
+        
+        <div class="nav-icon">
+          
+        </div>
+        Pending
+        
+      </div>
+
+      <div class="nav-item" onclick="setView(event, 'completed')">
+        <div class="nav-icon">
+          
+        </div>
+        Completed
+        
+      </div>
+
+      <div class="sidebar-spacer"></div>
+      <div class="nav-label">Priority</div>
+
+      <div class="nav-item" onclick="setPriorityFilter(event, 'high')">
+        <div class="nav-icon">
+          
+        </div> High Priority </div>
+
+      <div class="nav-item" onclick="setPriorityFilter(event, 'medium')">
+        <div class="nav-icon">
+          
+        </div>
+        Medium Priority
+        
+      </div>
+
+      <div class="nav-item" onclick="setPriorityFilter(event, 'low')">
+        <div class="nav-icon">
+          
+        </div>
+        Low Priority
+        
+      </div>
+    </nav>
+
+   
+  </aside>
+
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+
+  <div class="main">
+
+    <!-- TOP BAR -->
+    <header class="topbar">
+
+    <button class="hamburger" id="hamburger" onclick="toggleSidebar()">
+        ...
+    </button>
+
+    <div class="topbar-title">
+        ToDo <span>Dashboard</span>
+    </div>
+
+    <!-- Search -->
+    <div class="search-box">
+        <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/>
+            <path d="M20 20L17 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+
+      <input
+    type="text"
+    id="task-search"
+    placeholder="Search tasks..."
+    oninput="setSearch(this.value)"
+    /> 
+    </div>
+
+    <button class="btn-new-task" onclick="openCreateModal()">
+        +
+        NEW TASK
+    </button>
+
+</header>
+
+    <!-- PAGE -->
+    <main class="page">
+
+      <!-- STATS -->
+      <div class="stats-grid">
+        <div class="stat-card total">
+            <div class="stat-label">Total Tasks</div>
+            <div class="stat-value" id="stat-total">0</div>
+            <div class="stat-sub">All time records</div>
+        </div>
+
+        <div class="stat-card pending">
+          <div class="stat-label">Pending</div>
+          <div class="stat-value" id="stat-pending">0</div>
+          <div class="stat-sub">Awaiting completion</div>
+        </div>
+
+        <div class="stat-card done">
+          <div class="stat-label">Completed</div>
+          <div class="stat-value" id="stat-done">0</div>
+          <div class="stat-sub">Successfully closed</div>
+        </div>
+
+        <div class="stat-card high">
+          <div class="stat-label">High Priority</div>
+          <div class="stat-value" id="stat-high">0</div>
+          <div class="stat-sub">Needs attention</div>
+        </div>
+      </div>
+
+     
+     <div class="controls">
+     <div class="section-title" id="view-title">ALL TASKS</div>
+
+  <!-- STATUS BUTTONS -->
+  <div class="filter-group" id="status-filters">
+    <button class="filter-btn active" onclick="setStatus('all', this)">All</button>
+    <button class="filter-btn" onclick="setStatus('pending', this)">Pending</button>
+    <button class="filter-btn" onclick="setStatus('completed', this)">Done</button>
+  </div>
+
+ 
+  <div class="filter-group" id="priority-filters" style="display:none;">
+    <button class="filter-btn" onclick="setPriorityFromUI('high', this)">High</button>
+    <button class="filter-btn" onclick="setPriorityFromUI('medium', this)">Medium</button>
+    <button class="filter-btn" onclick="setPriorityFromUI('low', this)">Low</button>
+  </div>
+</div>
+
+   
+      <div class="task-panel">
+        <table class="task-table">
+          <thead>
+            <tr>
+              <th>T No</th>
+              <th>Title</th>
+              <th>Description</th>
+              <th>Due Date</th>
+              <th>Priority</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="task-tbody">
+            <tr class="loading-row">
+              <td colspan="8">
+                <div class="loading-inline">
+                  <div class="spinner"></div>
+                  Fetching tasks...
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+
+<div class="overlay" id="taskModal" onclick="handleOverlayClick(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title" id="modal-title">NEW <span>TASK</span></div>
+        <div class="modal-subtitle" id="modal-subtitle">Fill in task details below</div>
+      </div>
+      <button class="btn-close" onclick="closeModal('taskModal')">x</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group full" id="fg-title">
+          <label class="form-label">Task Title *</label>
+          <input type="text" class="form-control" id="task-title" placeholder="Add the task" maxlength="120"/>
+          <span class="error-msg">Title is required.</span>
+        </div>
+      </div>
+      <div class="form-group" id="fg-desc">
+        <label class="form-label">Description</label>
+        <textarea class="form-control" id="task-desc" placeholder="description of the task"></textarea>
+      </div>
+      <div class="form-row">
+        <div class="form-group" id="fg-due">
+          <label class="form-label">Due Date *</label>
+          <input type="date" class="form-control" id="task-due"/>
+          <span class="error-msg">Due date is required.</span>
+        </div>
+        <div class="form-group" id="fg-priority">
+          <label class="form-label">Priority *</label>
+          <select class="form-control" id="task-priority">
+            <option value="">Select priority</option>
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+          </select>
+          <span class="error-msg">Priority is required.</span>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="closeModal('taskModal')">Cancel</button>
+      <button class="btn-submit" id="modal-submit-btn" onclick="submitTask()">CREATE TASK</button>
+    </div>
+  </div>
+</div>
+
+<!-- ─── CONFIRM DELETE MODAL ─────────────── -->
+<div class="overlay" id="confirmModal" onclick="handleOverlayClick(event)">
+  <div class="modal confirm-modal">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title modal-title-danger">DELETE <span class="modal-title-danger">TASK</span></div>
+        <div class="modal-subtitle">THIS ACTION CANNOT BE UNDONE</div>
+      </div>
+      <button class="btn-close" onclick="closeModal('confirmModal')">x</button>
+    </div>
+    <div class="confirm-body" id="confirm-body">
+      Are you sure you want to delete <strong id="delete-task-name"></strong>?
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="closeModal('confirmModal')">Cancel</button>
+      <button class="btn-submit btn-danger" id="confirm-delete-btn" onclick="confirmDelete()">DELETE</button>
+    </div>
+  </div>
+</div>
+
+
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- SCRIPT -->
+<script src="script.js"></script>
+
+</body>
+</html>
+</body>
+</html>
