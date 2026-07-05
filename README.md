@@ -18,7 +18,7 @@ The system follows a client-server architecture with a RESTful API built using N
 - Real-time dashboard showing task statistics
 - Clean and responsive user interface
 - Fully API-driven frontend-backend communication
-
+- Filter tasks by status and priority independently or in combination (e.g., Completed + High Priority or Pending + Low Priority)
 ---
 
 ## Purpose
